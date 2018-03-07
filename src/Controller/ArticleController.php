@@ -9,10 +9,11 @@
 namespace App\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController
+class ArticleController extends AbstractController
 {
     /**
      * @Route("/")
@@ -29,9 +30,16 @@ class ArticleController
      */
     public function show($slug)
     {
-        return new Response(sprintf('Future page to show space article!: %s',
-        $slug
-        ));
+        $comments = [
+          'I love symfony',
+          'This is just the best of them all',
+          'You know excaltly what I am talking about'
+        ];
+
+        return $this->render('article/show.html.twig', [
+            'title' =>  ucwords(str_replace('-', ' ', $slug)),
+            'comments'  => $comments,
+        ]);
 
     }
 
